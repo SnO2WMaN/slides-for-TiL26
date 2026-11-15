@@ -1,0 +1,7 @@
+*.pdf
+
+# VSCode
+.vscode/settings.json
+
+# CI で取得するフォント
+/fonts/

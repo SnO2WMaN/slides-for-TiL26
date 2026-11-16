@@ -8,7 +8,7 @@
   config-info(
     title: [Embeddings of propositional logics into the provability logics $LogicS$ and $LogicD$],
     date: [2026/11/26 @ Trends in Logic XXVI],
-    url: "https://sno2wman.github.io/slides-for-TPP2026/main.pdf",
+    url: "https://sno2wman.github.io/slides-for-TiL26/main.pdf",
     author: [Mashū Noguchi],
     institution: [Kobe University],
   ),

@@ -456,6 +456,74 @@ How about semantics?
 
 == Kripke semantics
 
+#let omegaprec = $attach(prec, tr: omega)$
+#let omegasucc = $attach(succ, tr: omega)$
+#let omegaforces = $attach(forces, tr: omega)$
+
+#definition[
+  Propositional Kripke model $M := chevron.l W, prec, forces chevron.r$ is $LogicFPL$-model if
+  $prec$ is _transitive_, _converse well-founded_. _valuation-persistent_.
+]
+
+#definition[
+  Let $M := chevron.l W, prec, forces chevron.r$ be $LogicFPL$-model.
+  We call $M^omega := chevron.l W^omega, omegaprec, omegaforces chevron.r$ is $omega$-extension of $M$ at $r in W$ if:
+  + $W^omega := W union.plus {t_i colon i in omega }$.
+  + $omegaprec$ is sketch below.
+  + $omegaforces$ is valuation-persistent in $M^omega$ and coincides $forces$ in $W$.
+]
+
+// embedding.pdf の Fig. (omega-extension) を横向きにしたもの．t_ω（左）から W（右）へ向かう．
+#align(center, canvas(length: 2em, {
+  import draw: *
+  let pt(p) = circle(p, radius: 0.07, fill: black)
+  let arr(a, b) = line(a, b, mark: (end: "stealth", fill: black))
+  circle((3.3, 0), radius: (1.25, 1.7), stroke: luma(140))
+  content((4.75, 1.5), $W$)
+  pt((2.5, 0))
+  content((2.4, -0.45), $r$)
+  pt((3.6, 1.0))
+  pt((3.7, -1.0))
+  pt((4.2, -0.2))
+  arr((2.57, 0.07), (3.53, 0.93))
+  arr((2.57, -0.07), (3.63, -0.93))
+  arr((2.6, -0.02), (4.1, -0.18))
+  // tail の点 t_0, ..., t_(n-1) を間隔 d で左へ並べる．
+  let t0 = 1.3
+  let d = 1.1
+  let n = 4
+  let tx(i) = t0 - i * d
+  arr((t0 + 0.1, 0), (2.4, 0))
+  for i in range(n) {
+    pt((tx(i), 0))
+    content((tx(i), -0.45), $t_#i$)
+    if i > 0 { arr((tx(i) + 0.1, 0), (tx(i - 1) - 0.1, 0)) }
+  }
+  let last = tx(n - 1)
+  content((last - 0.95, 0), $dots.c$)
+  arr((last - 0.65, 0), (last - 0.1, 0))
+  pt((last - 2.0, 0))
+  content((last - 2.0, -0.45), $t_omega$)
+  arr((last - 1.9, 0), (last - 1.3, 0))
+  content(((t0 + last - 1.2) / 2, 1.0), [tail])
+  content((last - 2.0, 1.0), [bottom])
+  line((t0 + 0.25, 0.6), (last - 1.2, 0.6), stroke: (paint: luma(140), thickness: 0.5pt))
+}))
+
+#pagebreak()
+
+#theorem[
+  + $GentzenDPL proves Gamma seq1 Delta$ if and only if $Gamma seq1 Delta$ is valid for any $LogicFPL$-model.
+  + $GentzenDPL proves Gamma seq2 Delta$ if and only if $Gamma seq2 Delta$ is eventually always satisfied on the tail $(t_n)_(n in omega)$ of every $omega$-extension of $LogicFPL$-model.
+    - some $N$ exists, satisfied at for any $t_n colon n >= N$.
+  + $GentzenDPL proves Gamma seq3 Delta$ if and only if $Gamma seq3 Delta$ is satisfied on the bottom $t_omega$ of every $omega$-extension of $LogicFPL$-model.
+]
+
+#proposition[
+  With semantical results of @KKIM25,
+  $GentzenDPL proves Gamma seq(level) Delta <==> GentzenD proves Gamma^visserTr seq(level) Delta^visserTr$ can be proven by semanitcal means.
+]
+
 == Logic and Calculus
 
 By semantical analysis, surprisingly, _logic_ $LogicFPL, LogicDPL, LogicSPL$ coincides.

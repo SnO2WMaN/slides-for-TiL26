@@ -253,7 +253,7 @@
                   text(
                     size: 1.125em,
                     weight: "bold",
-                    font: ("Newsreader", "Newsreader 16pt"),
+                    font: "Newsreader 16pt",
                     fill: rgb("#fff"),
                     tracking: -0.1em,
                     info.subtitle,
@@ -459,7 +459,7 @@
     ..args,
   )
 
-  set text(font: ("Newsreader", "Newsreader 16pt"), lang: "en", size: 18pt, fill: theme-colors.foreground)
+  set text(font: "Newsreader 16pt", lang: "en", size: 18pt, fill: theme-colors.foreground)
   show quote.where(block: true): it => block(
     width: 100%,
     above: 0.8em,
@@ -475,7 +475,7 @@
       }
     },
   )
-  show math.equation: set text(font: ("New Computer Modern Math", "Newsreader", "Newsreader 16pt"))
+  show math.equation: set text(font: ("New Computer Modern Math", "Newsreader 16pt"))
   show raw: set text(font: "Juisee", size: 1em)
   show raw.where(block: true): set text(size: 0.9em)
   show footnote.entry: set text(size: .75em, fill: theme-colors.secondary)

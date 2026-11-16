@@ -20,7 +20,9 @@
 
 == Abstract
 
-We give two propositional logics that can be embedding into Solovay's provability logic $LogicS$ and Japaridze's provability logic $LogicD$ via some modified Gödel translation, by sequent caliculus.
+What we talk:
++ Sequent calculus for defining two propositional logics embeddable into Solovay's $LogicS$ and Japaridze's $LogicD$ via a modified Gödel translation.
++ Semantical analytics for this caliculus and logic.
 
 == Map
 
@@ -103,14 +105,14 @@ We give two propositional logics that can be embedding into Solovay's provabilit
   )
 ]
 
-- Upper: propositional logic
-- Lower: modal logic
+- Upper: propositional logics
+- Lower: modal logics
 
 #let Fml = $serif("Fml")$
 
 == Gödel-McKinsey-Tarski Theorem
 
-Intuitionistic logic $Logic("Int")$ can be embedding into modal logic $Logic("S4")$.
+$Logic("Int")$ embeds into $Logic("S4")$.
 
 #fact[@Göd33,@MT48][
   $
@@ -120,10 +122,10 @@ Intuitionistic logic $Logic("Int")$ can be embedding into modal logic $Logic("S4
 
 
 #definition[
-  _Gödel translation_ $(dot.c)^goedelTr : Fml_upright("P") -> Fml_upright("M")$．
+  The _Gödel translation_ $(dot.c)^goedelTr : Fml_upright("P") -> Fml_upright("M")$ is defined by:
 
-  - $p^goedelTr mapsto box p$ where $p$ is propositional variables.
-  - $bot^goedelTr mapsto box bot$．
+  - $p^goedelTr mapsto box p$ where $p$ is a propositional variable.
+  - $bot^goedelTr mapsto box bot$
   - $(A -> B)^goedelTr mapsto box (A^goedelTr -> B^goedelTr)$
   - $(A and B)^goedelTr mapsto A^goedelTr and B^goedelTr$
   - $(A or B)^goedelTr mapsto A^goedelTr or B^goedelTr$
@@ -132,26 +134,26 @@ Intuitionistic logic $Logic("Int")$ can be embedding into modal logic $Logic("S4
 == Modal Companion
 
 #definition[
-  Let $L$ be propositional logic and $M$ be modal logic.
-  We say _$M$ is modal companion of propositional logic (via $goedelTr$)_ if $L proves A <==> M proves A^goedelTr$.
+  Let $L$ be a propositional logic and $M$ be a modal logic.
+  We say that _$M$ is a modal companion of $L$ (via $goedelTr$)_ if $L proves A <==> M proves A^goedelTr$.
 ]
 
-It is well-known for modal companions of superintuitionistic logics: Stronger than $Logic("S4")$.
+Modal companions of superintuitionistic logics (extensions of $Logic("S4")$) are well known.
 
 #fact[cf. @CZ97][
-  - $Logic("S4.2") & : Logic("S4") + dia box p -> box dia p$ is modal companion of Jankov's logic (weak excluded middle): $Logic("KC") : Logic("Int") + not p or not not p$.
-  - $Logic("S4.3") & : Logic("S4") + box (box p -> q) or box (box q -> p)$ is modal companion of Gödel--Dummett logic (linearity) $Logic("LC") : Logic("Int") + (p -> q) or (q -> p)$.
-  - $Logic("S5") & : Logic("S4") + p -> box dia p$ is modal companion of classical logic $Logic("Cl") : Logic("Int") + p or not p$.
+  - $Logic("S4.2") & : Logic("S4") + dia box p -> box dia p$ is a modal companion of Jankov's logic (weak excluded middle) $Logic("KC") : Logic("Int") + not p or not not p$.
+  - $Logic("S4.3") & : Logic("S4") + box (box p -> q) or box (box q -> p)$ is a modal companion of Gödel--Dummett logic (linearity) $Logic("LC") : Logic("Int") + (p -> q) or (q -> p)$.
+  - $Logic("S5") & : Logic("S4") + p -> box dia p$ is a modal companion of classical logic $Logic("Cl") : Logic("Int") + p or not p$.
 ]
 
-_Question_: How about weaker than $Logic("S4")$ (e.g. $Logic("K"), LogicK4, LogicGL$)?
+_Question_: What about logics below $Logic("S4")$ (e.g. $Logic("K"), LogicK4, LogicGL$)?
 
 == Visser's $LogicBPL$ and $LogicFPL$
 
-From provability logic motivation, @Vis81 introduced two propositional logics, $LogicBPL$ (_Basic Propositional Logic_) and $LogicFPL$ (_Formal Propositional Logic_).
+Motivated by provability logic, @Vis81 introduced two propositional logics _by natural deduction_, $LogicBPL$ (_Basic Propositional Logic_) and $LogicFPL$ (_Formal Propositional Logic_).
 
 #definition[
-  _Visser--Gödel translation_ $(dot.c)^visserTr : Fml_upright("P") -> Fml_upright("M")$ is defined by changing for propositional variables: $ p^visserTr mapsto p and box p $
+  _Visser--Gödel translation_ $(dot.c)^visserTr : Fml_upright("P") -> Fml_upright("M")$ is $goedelTr$ with the variable clause changed: $ p^visserTr mapsto p and box p $
 ]
 
 #proposition[@Vis81][
@@ -162,27 +164,29 @@ From provability logic motivation, @Vis81 introduced two propositional logics, $
   $
 ]
 
-That is, $LogicK4$ ($LogicGL$) is modal companion of $LogicBPL$ (resp. $LogicFPL$) via $goedelTr$ or $visserTr$.
+That is, $LogicK4$ (resp. $LogicGL$) is a modal companion of $LogicBPL$ (resp. $LogicFPL$) via $goedelTr$ or $visserTr$.
 
+/*
 #pagebreak()
 
 In @Vis81:
-- Defined $LogicBPL$ and $LogicFPL$ by natural deduction.
-- Proven by Kripke semantical argument.
+- $LogicBPL$ and $LogicFPL$: defined.
+- The embeddings are proven by Kripke semantic arguments.
 
 #proposition[
-  - $LogicBPL$ is complete to transitive and valuation-persistent Kripke model (i.e. intuitionitic Kripke model without reflexivity).
-  - $LogicFPL$ is complete to transitive, irreflexive, persistent finite Kripke model.
+  - $LogicBPL$ is complete w.r.t. transitive, valuation-persistent Kripke models (intuitionistic models without reflexivity).
+  - $LogicFPL$ is complete w.r.t. finite, transitive, irreflexive, valuation-persistent Kripke models.
 ]
+*/
 
 == Sequent calculi for $LogicBPL$ and $LogicFPL$
 
-Sequent calculi for $LogicBPL$ and $LogicFPL$ are introduced by @IKK01 @YS17.
-- @IKK01 showed Kripke completeness and semantical cut-elimination.
-- @YS17 gives construcive embedding $LogicBPL$ into $LogicK4$.
+Sequent calculi: @IKK01 @YS17.
+- @IKK01: Kripke completeness and semantic cut-elimination.
+- @YS17: constructive embedding of $LogicBPL$ into $LogicK4$.
 
 #definition[$->$-left rule][
-  Let $k >= 0$, propositional formula $A, B, C_0 -> D_0, ..., C_n -> D_n$.
+  Let $k >= 0$ and let $A, B, C_0 -> D_0, ..., C_n -> D_n$ be propositional formulas.
 
   $
     #prooftree(rule(
@@ -226,16 +230,16 @@ Sequent calculi for $LogicBPL$ and $LogicFPL$ are introduced by @IKK01 @YS17.
   $
 ]
 
-== Provability logic $LogicS$ and $LogicD$
+== Provability logics $LogicS$ and $LogicD$
 
 Provability logics $LogicS$ and $LogicD$ are important _non-normal_ extensions of $LogicGL$.
 
-1. Solovay's provability logic: $LogicS := LogicGL + box A -> A$．
-  - Corresponds to true arithmetic $TA$．
-2. Japaridze(Dzhaparidze)'s provability logic: $LogicD := LogicGL + not box bot + box (box A or box B) -> box A or box B$．
+1. Solovay's provability logic: $LogicS := LogicGL + box A -> A$.
+  - Corresponds to true arithmetic $TA$.
+2. Japaridze's (Dzhaparidze's) provability logic: $LogicD := LogicGL + not box bot + box (box A or box B) -> box A or box B$.
   - Corresponds to $PA + #text[$Sigma_1$-reflection ($box_PA sigma -> sigma colon sigma in Sigma_1$)]$.
 
-Strictly inclusion holds: $LogicGL subset.neq LogicD subset.neq LogicS$.
+Strict inclusions hold: $LogicGL subset.neq LogicD subset.neq LogicS$.
 
 == Sequent calculi for $LogicS$ and $LogicD$
 
@@ -273,25 +277,24 @@ Strictly inclusion holds: $LogicGL subset.neq LogicD subset.neq LogicS$.
 #let GentzenS = Gentzen(LogicS)
 #let GentzenD = Gentzen(LogicD)
 
-Sequent calculi for $LogicS$ and $LogicD$ is introduced by @Kus20 @KKIM25.
+Sequent calculi: @Kus20 @KKIM25.
 
-Main idea: Sequent *with Level*.
+Main idea: sequents *with levels*.
 
 #definition[
-  Let $Gamma, Delta$ be sets and $level = 1,2,3$．
-  Sequent with level denotes by $Gamma seq(level) Delta$.
+  For sets of formulas $Gamma, Delta$ and $level = 1,2,3$, a sequent with level $level$ is $Gamma seq(level) Delta$.
 ]
 
-Inspiration:
-- $seq1$ corresponds to calculation of $LogicGL$.
-- $seq2$ corresponds to calculation of $Logic("KT")$.
-- If necessary, level-up from $seq1$ to $seq2$ and $seq2$ to $seq3$.
-- *Cannot back $seq2$ to $seq1$ and $seq3$ to $seq2$.*
+Intuition:
+- $seq1$: reasoning in $LogicGL$.
+- $seq2$: reasoning in $Logic("KT")$.
+- Levels can go up: $seq1 ~> seq2 ~> seq3$.
+- *Levels cannot go down.*
 
 #pagebreak()
 
 #definition[
-  Sequent calculus $GentzenD$ for $LogicS$ and $LogicD$. $level = 1, 2, 3$.
+  $GentzenD$ for $LogicS$ and $LogicD$ ($level = 1, 2, 3$).
 
   #grid(
     columns: 2,
@@ -347,13 +350,13 @@ Inspiration:
 
 #pagebreak()
 
-#fact[
-  1. $GentzenD proves Gamma seq1 Delta$ iff $LogicGL proves and.big Gamma -> or.big Delta$．
-  2. $GentzenD proves Gamma seq2 Delta$ iff $LogicS proves and.big Gamma -> or.big Delta$．
-  3. $GentzenD proves Gamma seq3 Delta$ iff $LogicD proves and.big Gamma -> or.big Delta$．
+#fact[@KKIM25][
+  1. $GentzenD proves Gamma seq1 Delta$ iff $LogicGL proves and.big Gamma -> or.big Delta$.
+  2. $GentzenD proves Gamma seq2 Delta$ iff $LogicS proves and.big Gamma -> or.big Delta$.
+  3. $GentzenD proves Gamma seq3 Delta$ iff $LogicD proves and.big Gamma -> or.big Delta$.
 ]
 
-#fact[Cut-elimination for $GentzenD$][
+#fact[Cut-elimination for $GentzenD$, @KKIM25][
   $#GentzenD + LvRuleCut(level, level) proves Gamma seq(level) Delta$ implies $#GentzenD proves Gamma seq(level) Delta$.
   $
     #prooftree(rule(name: LvRuleCut(level, level), $Gamma_1, Gamma_2 seq(level) Delta_1, Delta_2$, $Gamma_1 seq(level) Delta_1, A$, $A, Gamma_2 seq(level) Delta_2$))
@@ -362,12 +365,12 @@ Inspiration:
 
 == Motivation
 
-#text(size: 1.125em)[
-  Question: Can we defined propositional logics corresponds to $LogicS$ and $LogicD$ by sequent calculus $GentzenD$?
+#text(size: 1.25em)[
+  Question: Can we define propositional logics corresponding to $LogicS$ and $LogicD$?
 ]
 
-@Pet23 studies for sequent calculus for $LogicS$ and defined _Solovay's propositional logic_ $LogicSPL$.
-However, his proof-theoretical embedding have some errors.
+@Pet23 defined _Solovay's propositional logic_ $LogicSPL$ via @Kus20's sequent calculus for $LogicS$,
+but his proof of the embedding has errors.
 
 = Results
 
@@ -381,7 +384,7 @@ However, his proof-theoretical embedding have some errors.
 == Sequent calculus $GentzenDPL$
 
 #definition[$GentzenDPL$][
-  $level = 1, 2, 3$. Omitted $LvRuleAndL(level, level), LvRuleAndR(level, level), LvRuleOrL(level, level), LvRuleOrR(level, level)$.
+  $level = 1, 2, 3$. Omitted: $LvRuleAndL(level, level), LvRuleAndR(level, level), LvRuleOrL(level, level), LvRuleOrR(level, level)$.
   #grid(
     columns: 2,
     row-gutter: 24pt,
@@ -399,7 +402,7 @@ However, his proof-theoretical embedding have some errors.
     ],
 
     grid.cell(colspan: 2)[
-      Let $k >= 0$, propositional formula $A, B, C_0 -> D_0, ..., C_n -> D_n$.
+      Let $k >= 0$ and let $A, B, C_0 -> D_0, ..., C_n -> D_n$ be propositional formulas.
       $
         #prooftree(rule(
           name: $LvRuleImpR(1, 1)$,
@@ -438,9 +441,9 @@ However, his proof-theoretical embedding have some errors.
   )
 ]
 
-== Proof-theoretical results
+== Proof-theoretic results
 
-By _proof-theoreteic embedding_ by similar way @YS17 and @Pet23, we proved.
+By proof-theoretic embedding, following @YS17 @Pet23:
 
 #theorem[@Nog26][
   For finite sets $Gamma, Delta subset.eq FmlPL$ and $level = 1, 2, 3$:
@@ -451,8 +454,8 @@ By _proof-theoreteic embedding_ by similar way @YS17 and @Pet23, we proved.
   The rule $LvRuleCut(level, level)$ is admissible in $GentzenDPL$.
 ]
 
-However, this proof is very complicated.
-How about semantics?
+However, the syntactic proof is long and complicated.
+_What about semantics?_
 
 == Kripke semantics
 
@@ -461,16 +464,16 @@ How about semantics?
 #let omegaforces = $attach(forces, tr: omega)$
 
 #definition[
-  Propositional Kripke model $M := chevron.l W, prec, forces chevron.r$ is $LogicFPL$-model if
-  $prec$ is _transitive_, _converse well-founded_. _valuation-persistent_.
+  A propositional Kripke model $M := chevron.l W, prec, forces chevron.r$ is an _$LogicFPL$-model_ if
+  $prec$ is _transitive_ and _converse well-founded_, and $forces$ is _valuation-persistent_.
 ]
 
 #definition[
-  Let $M := chevron.l W, prec, forces chevron.r$ be $LogicFPL$-model.
-  We call $M^omega := chevron.l W^omega, omegaprec, omegaforces chevron.r$ is $omega$-extension of $M$ at $r in W$ if:
-  + $W^omega := W union.plus {t_i colon i in omega }$.
-  + $omegaprec$ is sketch below.
-  + $omegaforces$ is valuation-persistent in $M^omega$ and coincides $forces$ in $W$.
+  Let $M := chevron.l W, prec, forces chevron.r$ be an $LogicFPL$-model.
+  We call $M^omega := chevron.l W^omega, omegaprec, omegaforces chevron.r$ an _$omega$-extension_ of $M$ at $r in W$ if:
+  + $W^omega := W union.plus {t_i colon i <= omega }$.
+  + $omegaprec$ is as sketched below.
+  + $omegaforces$ is valuation-persistent in $M^omega$ and coincides with $forces$ on $W$.
 ]
 
 // embedding.pdf の Fig. (omega-extension) を横向きにしたもの．t_ω（左）から W（右）へ向かう．
@@ -512,40 +515,79 @@ How about semantics?
 
 #pagebreak()
 
-#theorem[
-  + $GentzenDPL proves Gamma seq1 Delta$ if and only if $Gamma seq1 Delta$ is valid for any $LogicFPL$-model.
-  + $GentzenDPL proves Gamma seq2 Delta$ if and only if $Gamma seq2 Delta$ is eventually always satisfied on the tail $(t_n)_(n in omega)$ of every $omega$-extension of $LogicFPL$-model.
-    - some $N$ exists, satisfied at for any $t_n colon n >= N$.
-  + $GentzenDPL proves Gamma seq3 Delta$ if and only if $Gamma seq3 Delta$ is satisfied on the bottom $t_omega$ of every $omega$-extension of $LogicFPL$-model.
+#theorem[Completeness of $GentzenDPL$][
+  + $GentzenDPL proves Gamma seq1 Delta$ if and only if $Gamma seq1 Delta$ is valid in every $LogicFPL$-model.
+  + $GentzenDPL proves Gamma seq2 Delta$ if and only if $Gamma seq2 Delta$ is eventually always satisfied on the tail $(t_n)_(n in omega)$ of every $omega$-extension of an $LogicFPL$-model.
+    - i.e. satisfied at all $t_n$ with $n >= N$, for some $N$.
+  + $GentzenDPL proves Gamma seq3 Delta$ if and only if $Gamma seq3 Delta$ is satisfied at the bottom $t_omega$ of every $omega$-extension of an $LogicFPL$-model.
 ]
 
 #proposition[
-  With semantical results of @KKIM25,
-  $GentzenDPL proves Gamma seq(level) Delta <==> GentzenD proves Gamma^visserTr seq(level) Delta^visserTr$ can be proven by semanitcal means.
+  Using the semantic results of @KKIM25 for modal logics, $GentzenDPL proves Gamma seq(level) Delta <==> GentzenD proves Gamma^visserTr seq(level) Delta^visserTr$ can be proven semantically.
 ]
 
 == Logic and Calculus
 
-By semantical analysis, surprisingly, _logic_ $LogicFPL, LogicDPL, LogicSPL$ coincides.
+Define the logics (i.e. sets of formulas) naturally:
 
-#theorem[
-  1. $GentzenDPL proves Gamma seq(1) Delta ==> GentzenDPL proves Gamma seq(3) Delta$. But the convserse does not holds.
-  2. $GentzenDPL proves Gamma seq(3) Delta ==> GentzenDPL proves Gamma seq(2) Delta$. But the convserse does not holds.
+#definition[
+  + $LogicFPL := { A colon GentzenDPL proves seq1 A}$
+  + $LogicSPL := { A colon GentzenDPL proves seq2 A}$
+  + $LogicDPL := { A colon GentzenDPL proves seq3 A}$
 ]
 
+Question: Since $LogicGL subset.neq LogicD subset.neq LogicS$, does $LogicFPL subset.neq LogicDPL subset.neq LogicSPL$ hold?
+*No!*
+
+#pagebreak()
+
+Surprisingly, semantics shows that the _logics_ $LogicFPL, LogicDPL, LogicSPL$ coincide.
+
+
 #theorem[
-  $LogicFPL = LogicDPL = LogicSPL$．
+  $LogicFPL = LogicDPL = LogicSPL$.
 ]
 
 #corollary[
-  $A^visserTr in LogicGL <==> A^visserTr in LogicD <==> A^visserTr in LogicS$ for any $A in FmlPL$.
+  For any $A in FmlPL$:
+  $
+    A^visserTr in LogicGL <==> A^visserTr in LogicD <==> A^visserTr in LogicS
+  $
 ]
 
-It means that Visser--Gödel translation acts quite strongly on propositional logics.
+The Visser--Gödel translation acts quite strongly on propositional logics.
+
+However, they differ at the sequent level; counterexamples are easy to find.
+
+#theorem[
+  1. $GentzenDPL proves Gamma seq(1) Delta$ implies $GentzenDPL proves Gamma seq(3) Delta$. But the converse fails.
+  2. $GentzenDPL proves Gamma seq(3) Delta$ implies $GentzenDPL proves Gamma seq(2) Delta$. But the converse fails.
+]
 
 = Conclusion
 
-== Referneces
+== Conclusion
+
++ Sequent calculi for two propositional logics embeddable into Solovay's $LogicS$ and Japaridze's $LogicD$ via a modified Gödel translation.
+  - Sequents _with levels_.
++ Semantic analysis of these calculi and logics.
+  - $omega$-extensions of Kripke models.
+
+== Ongoing research
+
+Some problems remains! Examples:
+
++ What is meaning of $LogicFPL, LogicSPL, LogicDPL$ in perspective of provability logic?
++ Correspondence with the classification theorem of @Bek90.
+  #proposition[Classification Theorem][
+    Provability logics can be classified into four families, each consisting of suitable extensions of $LogicGL$, $LogicD$ or $LogicS$.
+  ]
+  Can we define propositional logics corresponding to them?
+  - Sequent calculi with four levels seem to work (in progress).
++ Relation between the Gödel translation and Visser--Gödel translations.
+  - They differ subtly at the logic level and at the sequent level.
+
+== References
 
 #show bibliography: set text(size: 0.75em)
 #bibliography(title: none, "references.yml", style: "elsevier-harvard")

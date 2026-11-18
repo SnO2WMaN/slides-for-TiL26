@@ -3,6 +3,39 @@
 
 #let Gentzen(L) = $bold(sans("G"))_#L$
 #let G3(L) = $bold(sans("G3"))_#L$
+#let seq(l) = $attach(tr: #l, =>)$
+#let seq1 = seq("1")
+#let seq2 = seq("2")
+#let seq3 = seq("3")
+#let level = $scr(l)$
+#let LvRuleAx(l) = Rule($"Ax"_#l$)
+#let LvRuleBotL(l) = Rule($bot L_(#l)$)
+#let Inverse(R) = $#R^(-1)$
+#let LvRuleWL(l1, l2) = Rule($W L^(#l1)_(#l2)$)
+#let LvRuleWR(l1, l2) = Rule($W R^(#l1)_(#l2)$)
+#let LvRuleCL(l1, l2) = Rule($C L^(#l1)_(#l2)$)
+#let LvRuleCR(l1, l2) = Rule($C R^(#l1)_(#l2)$)
+#let LvRuleAndL(l1, l2) = Rule($and L^(#l1)_(#l2)$)
+#let LvRuleAndLI(l1, l2) = Inverse(LvRuleAndL(l1, l2))
+#let LvRuleAndR(l1, l2) = Rule($and R^(#l1)_(#l2)$)
+#let LvRuleAndRI(l1, l2) = Inverse(LvRuleAndR(l1, l2))
+#let LvRuleOrL(l1, l2) = Rule($or L^(#l1)_(#l2)$)
+#let LvRuleOrLI(l1, l2) = Inverse(LvRuleOrL(l1, l2))
+#let LvRuleOrR(l1, l2) = Rule($or R^(#l1)_(#l2)$)
+#let LvRuleOrRI(l1, l2) = Inverse(LvRuleOrR(l1, l2))
+#let LvRuleCut(l1, l2) = Rule($"Cut"^(#l1)_(#l2)$)
+#let LvRuleImpL(l1, l2) = Rule($->L^(#l1)_(#l2)$)
+#let LvRuleImpLI(l1, l2) = Inverse(LvRuleImpL(l1, l2))
+#let LvRuleImpR(l1, l2) = Rule($->R^(#l1)_(#l2)$)
+#let LvRuleImpRI(l1, l2) = Inverse(LvRuleImpR(l1, l2))
+#let LvRuleBoxL(l1, l2) = Rule($box L^(#l1)_(#l2)$)
+#let LvRuleBoxLI(l1, l2) = Inverse(LvRuleBoxL(l1, l2))
+#let LvRuleBoxGL(l1, l2) = Rule($box #LogicGL^(#l1)_(#l2)$)
+#let LvRuleBoxGLI(l1, l2) = Inverse(LvRuleBoxGL(l1, l2))
+#let LvRuleLift(l1, l2) = Rule($"LU"^(#l1)_(#l2)$)
+
+#let GentzenS = Gentzen(LogicS)
+#let GentzenD = Gentzen(LogicD)
 
 #show: slides-theme.with(
   config-info(
@@ -22,7 +55,7 @@
 
 What we talk:
 + Sequent calculus for defining two propositional logics embeddable into Solovay's $LogicS$ and Japaridze's $LogicD$ via a modified Gödel translation.
-+ Semantical analytics for this caliculus and logic.
++ Semantical analytics for this caliculus and logic (briefly).
 
 == Map
 
@@ -114,13 +147,6 @@ What we talk:
 
 $Logic("Int")$ embeds into $Logic("S4")$.
 
-#fact[@Göd33,@MT48][
-  $
-    Logic("Int") proves A <==> Logic("S4") proves A^goedelTr
-  $
-]
-
-
 #definition[
   The _Gödel translation_ $(dot.c)^goedelTr : Fml_upright("P") -> Fml_upright("M")$ is defined by:
 
@@ -130,6 +156,70 @@ $Logic("Int")$ embeds into $Logic("S4")$.
   - $(A and B)^goedelTr mapsto A^goedelTr and B^goedelTr$
   - $(A or B)^goedelTr mapsto A^goedelTr or B^goedelTr$
 ]
+
+#fact[@Göd33,@MT48][
+  $
+    Logic("Int") proves A <==> Logic("S4") proves A^goedelTr
+  $
+]
+
+#pagebreak()
+
+It is well-known for stronger than $Logic("S4")$ / $Logic("Int")$.
+
+#fact[cf. @CZ97][
+  - $Logic("S4.2") & : Logic("S4") + dia box p -> box dia p$ is a modal companion of Jankov's logic (weak excluded middle) $Logic("KC") : Logic("Int") + not p or not not p$.
+  - $Logic("S4.3") & : Logic("S4") + box (box p -> q) or box (box q -> p)$ is a modal companion of Gödel--Dummett logic (linearity) $Logic("LC") : Logic("Int") + (p -> q) or (q -> p)$.
+  - $Logic("S5") & : Logic("S4") + p -> box dia p$ is a modal companion of classical logic $Logic("Cl") : Logic("Int") + p or not p$.
+]
+
+Question: Weaker about weaker than $Logic("S4")$ / $Logic("Int")$?
+
+== Visser's $LogicBPL$ and $LogicFPL$
+
+Motivated by provability logic, @Vis81 introduced two propositional logics, $LogicBPL$ (_Basic Propositional Logic_) and $LogicFPL$ (_Formal Propositional Logic_).
+
+#definition[
+  _Visser--Gödel translation_ $(dot.c)^visserTr : Fml_upright("P") -> Fml_upright("M")$ is $goedelTr$ with the variable clause changed: $ p^visserTr mapsto p and box p $
+]
+
+#proposition[@Vis81][
+  $
+    LogicBPL proves A & <==> LogicK4 proves A^visserTr & <==> LogicK4 proves A^goedelTr \
+    LogicFPL proves A & <==> LogicGL proves A^visserTr & <==> LogicGL proves A^goedelTr
+  $
+]
+
+== Provability logics $LogicS$ and $LogicD$
+
+Provability logics $LogicS$ and $LogicD$ are important _non-normal_ extensions of $LogicGL$.
+
+1. Solovay's provability logic: $LogicS := LogicGL + box A -> A$.
+  - Corresponds to true arithmetic $TA$.
+2. Japaridze's (Dzhaparidze's) provability logic: $LogicD := LogicGL + not box bot + box (box A or box B) -> box A or box B$.
+  - Corresponds to $PA + #text[$Sigma_1$-reflection ($box_PA sigma -> sigma colon sigma in Sigma_1$)]$.
+
+Strict inclusions hold: $LogicGL subset.neq LogicD subset.neq LogicS$.
+
+== Motivation
+
+#text(size: 1.25em)[
+  Main Question: Can we define propositional logics corresponding to $LogicS$ and $LogicD$?
+]
+
+#problem[
+  How can we define $LogicSPL$ and $LogicDPL$?
+  $
+    LogicSPL proves A & <==> LogicS proves A^visserTr \
+    LogicDPL proves A & <==> LogicD proves A^visserTr
+  $
+]
+
+@Pet23 defined _Solovay's propositional logic_ $LogicSPL$ via @Kus20's sequent calculus for $LogicS$,
+but his proof of the embedding has errors.
+We fix this errors and extend his result.
+
+/*
 
 == Modal Companion
 
@@ -243,40 +333,6 @@ Strict inclusions hold: $LogicGL subset.neq LogicD subset.neq LogicS$.
 
 == Sequent calculi for $LogicS$ and $LogicD$
 
-#let seq(l) = $attach(tr: #l, =>)$
-#let seq1 = seq("1")
-#let seq2 = seq("2")
-#let seq3 = seq("3")
-#let level = $scr(l)$
-#let LvRuleAx(l) = Rule($"Ax"_#l$)
-#let LvRuleBotL(l) = Rule($bot L_(#l)$)
-#let Inverse(R) = $#R^(-1)$
-#let LvRuleWL(l1, l2) = Rule($W L^(#l1)_(#l2)$)
-#let LvRuleWR(l1, l2) = Rule($W R^(#l1)_(#l2)$)
-#let LvRuleCL(l1, l2) = Rule($C L^(#l1)_(#l2)$)
-#let LvRuleCR(l1, l2) = Rule($C R^(#l1)_(#l2)$)
-#let LvRuleAndL(l1, l2) = Rule($and L^(#l1)_(#l2)$)
-#let LvRuleAndLI(l1, l2) = Inverse(LvRuleAndL(l1, l2))
-#let LvRuleAndR(l1, l2) = Rule($and R^(#l1)_(#l2)$)
-#let LvRuleAndRI(l1, l2) = Inverse(LvRuleAndR(l1, l2))
-#let LvRuleOrL(l1, l2) = Rule($or L^(#l1)_(#l2)$)
-#let LvRuleOrLI(l1, l2) = Inverse(LvRuleOrL(l1, l2))
-#let LvRuleOrR(l1, l2) = Rule($or R^(#l1)_(#l2)$)
-#let LvRuleOrRI(l1, l2) = Inverse(LvRuleOrR(l1, l2))
-#let LvRuleCut(l1, l2) = Rule($"Cut"^(#l1)_(#l2)$)
-#let LvRuleImpL(l1, l2) = Rule($->L^(#l1)_(#l2)$)
-#let LvRuleImpLI(l1, l2) = Inverse(LvRuleImpL(l1, l2))
-#let LvRuleImpR(l1, l2) = Rule($->R^(#l1)_(#l2)$)
-#let LvRuleImpRI(l1, l2) = Inverse(LvRuleImpR(l1, l2))
-#let LvRuleBoxL(l1, l2) = Rule($box L^(#l1)_(#l2)$)
-#let LvRuleBoxLI(l1, l2) = Inverse(LvRuleBoxL(l1, l2))
-#let LvRuleBoxGL(l1, l2) = Rule($box #LogicGL^(#l1)_(#l2)$)
-#let LvRuleBoxGLI(l1, l2) = Inverse(LvRuleBoxGL(l1, l2))
-#let LvRuleLift(l1, l2) = Rule($"LU"^(#l1)_(#l2)$)
-
-#let GentzenS = Gentzen(LogicS)
-#let GentzenD = Gentzen(LogicD)
-
 Sequent calculi: @Kus20 @KKIM25.
 
 Main idea: sequents *with levels*.
@@ -371,9 +427,9 @@ Intuition:
 
 @Pet23 defined _Solovay's propositional logic_ $LogicSPL$ via @Kus20's sequent calculus for $LogicS$,
 but his proof of the embedding has errors.
+*/
 
 = Results
-
 
 #let GentzenSPL = $Gentzen(LogicSPL)$
 #let GentzenDPL = $Gentzen(LogicDPL)$
@@ -381,7 +437,102 @@ but his proof of the embedding has errors.
 #let FmlPL = $upright("Fml")_upright("P")$
 #let FmlML = $upright("Fml")_upright("M")$
 
+== Sequent calculi for $LogicS$ and $LogicD$
+
+Sequent calculi for $LogicS$ and $LogicD$ are studied in @Kus20 @KKIM25.
+
+Main idea: *sequents with levels*.
+
+#definition[
+  For sets of formulas $Gamma, Delta$ and $level = 1,2,3$, we call $Gamma seq(level) Delta$ is _sequent with level $level$_.
+]
+
+Intuition:
+- $seq1$: reasoning in $LogicGL$.
+- $seq2$: reasoning in $Logic("KT")$.
+- Levels can go up: $seq1$ to $seq2$ to $seq3$.
+- *Levels cannot go down.*
+
+#pagebreak()
+
+#definition[
+  Sequent calculus $GentzenD$ for $LogicS$ and $LogicD$ ($level = 1, 2, 3$).
+
+  #grid(
+    columns: 2,
+    row-gutter: 16pt,
+    align: top,
+    [
+      $ #prooftree(rule(name: LvRuleAx(level), $p seq(level) p$)) $
+    ],
+    [$ #prooftree(rule(name: LvRuleBotL(level), $bot seq(level)$)) $],
+
+    [$ #prooftree(rule(name: LvRuleWL(level, level), $Gamma seq(level) Delta$, $A, Gamma seq(level) Delta$)) $],
+    [$ #prooftree(rule(name: LvRuleWR(level, level), $Gamma seq(level) Delta$, $Gamma seq(level) Delta, A$)) $],
+
+    [
+      $
+        #prooftree(rule(
+          name: LvRuleImpL(level, level),
+          $A -> B, Gamma seq(level) Delta$,
+          $Gamma seq(level) Delta, A$,
+          $B, Gamma seq(level) Delta$,
+        ))
+      $
+    ],
+    [
+      $
+        #prooftree(rule(name: LvRuleImpR(level, level), $A, Gamma seq(level) Delta, B$, $Gamma seq(level) Delta, A -> B$))
+      $
+    ],
+
+    [
+      $
+        #prooftree(rule(name: LvRuleBoxGL(1, 1), $box Gamma, Gamma, box A seq1 A$, $box Gamma seq1 box A$))
+      $
+    ],
+    [
+      $
+        #prooftree(rule(name: LvRuleBoxL(2, 2), $A, Gamma seq2 Delta$, $box A, Gamma seq2 Delta$))
+      $
+    ],
+
+    [
+      $
+        #prooftree(rule(name: LvRuleLift(1, 2), $Gamma seq1 Delta$, $Gamma seq2 Delta$))
+      $
+    ],
+    [
+      $
+        #prooftree(rule(name: LvRuleLift(2, 3), $box Gamma seq2 box Delta$, $box Gamma seq3 box Delta$))
+      $
+    ],
+  )
+]
+
+#pagebreak()
+
+#fact[@KKIM25][
+  1. $GentzenD proves Gamma seq1 Delta$ iff $LogicGL proves and.big Gamma -> or.big Delta$.
+  2. $GentzenD proves Gamma seq2 Delta$ iff $LogicS proves and.big Gamma -> or.big Delta$.
+  3. $GentzenD proves Gamma seq3 Delta$ iff $LogicD proves and.big Gamma -> or.big Delta$.
+]
+
+#fact[Cut-elimination for $GentzenD$, @KKIM25][
+  $#GentzenD + LvRuleCut(level, level) proves Gamma seq(level) Delta$ implies $#GentzenD proves Gamma seq(level) Delta$.
+  $
+    #prooftree(rule(name: LvRuleCut(level, level), $Gamma_1, Gamma_2 seq(level) Delta_1, Delta_2$, $Gamma_1 seq(level) Delta_1, A$, $A, Gamma_2 seq(level) Delta_2$))
+  $
+]
+
+
 == Sequent calculus $GentzenDPL$
+
+Sequent calculi for $LogicBPL$ and $LogicFPL$ are studied in @IKK01 @YS17.
+
+Conbining the idea _sequent with level_ to their calculus, we obtain sequent calucus $GentzenDPL$ for $LogicFPL, LogicSPL, LogicDPL$!
+
+#pagebreak()
 
 #definition[$GentzenDPL$][
   $level = 1, 2, 3$. Omitted: $LvRuleAndL(level, level), LvRuleAndR(level, level), LvRuleOrL(level, level), LvRuleOrR(level, level)$.
@@ -441,6 +592,38 @@ but his proof of the embedding has errors.
   )
 ]
 
+#pagebreak()
+
+#example[$->$-left rule][
+
+  $k = 0$:
+  $
+    #prooftree(rule(name: $LvRuleImpR(1, 1)$, $Sigma, A -> B, A seq(1) B$, $Sigma => A -> B, Pi$))
+  $
+
+  $k = 1$:
+  $
+    #prooftree(rule(
+      name: $LvRuleImpR(1, 1)$,
+      $Sigma,C_0 -> D_0, A -> B, A seq(1) B, C_0$,
+      $D_0, C_0 -> D_0, Sigma, A -> B, A seq(1) B$,
+      $Sigma, C_0 -> D_0 seq(1) A -> B, Pi$,
+    ))
+  $
+
+  $k = 2$:
+  $
+    #prooftree(rule(
+      name: $LvRuleImpR(1, 1)$,
+      $Sigma, \{C_j -> D_j\}_(j < 2), A -> B, A seq(1) B, C_0, C_1$,
+      $D_0, D_1, \{C_j -> D_j\}_(j < 2), Sigma, A -> B, A seq(1) B$,
+      $D_0, Sigma, \{C_j -> D_j\}_(j < 2), A -> B, A seq(1) B, C_1$,
+      $D_1, Sigma, \{C_j -> D_j\}_(j < 2), A -> B, A seq(1) B, C_0$,
+      $Sigma, \{C_j -> D_j\}_(j < 2) seq(1) A -> B, Pi$,
+    ))
+  $
+]
+
 == Proof-theoretic results
 
 By proof-theoretic embedding, following @YS17 @Pet23:
@@ -450,7 +633,13 @@ By proof-theoretic embedding, following @YS17 @Pet23:
   $ GentzenDPL proves Gamma seq(level) Delta <==> GentzenD proves Gamma^visserTr seq(level) Delta^visserTr $
 ]
 
-#corollary[Cut-admissibility of $GentzenDPL$][
+#corollary[
+  1. $GentzenDPL proves Gamma seq1 Delta$ iff $LogicGL proves and.big Gamma^visserTr -> or.big Delta^visserTr$.
+  2. $GentzenDPL proves Gamma seq2 Delta$ iff $LogicS proves and.big Gamma^visserTr -> or.big Delta^visserTr$.
+  3. $GentzenDPL proves Gamma seq3 Delta$ iff $LogicD proves and.big Gamma^visserTr -> or.big Delta^visserTr$.
+]
+
+#corollary[Cut-elimnation of $GentzenDPL$][
   The rule $LvRuleCut(level, level)$ is admissible in $GentzenDPL$.
 ]
 
@@ -465,7 +654,7 @@ _What about semantics?_
 
 #definition[
   A propositional Kripke model $M := chevron.l W, prec, forces chevron.r$ is an _$LogicFPL$-model_ if
-  $prec$ is _transitive_ and _converse well-founded_, and $forces$ is _valuation-persistent_.
+  $prec$ is _transitive_ and _converse well-founded_ (i.e. there's not infinite $x_1 prec x_2 prec dots.c$.), and $forces$ is _valuation-persistent_.
 ]
 
 #definition[
@@ -515,10 +704,12 @@ _What about semantics?_
 
 #pagebreak()
 
+We say $x forces Gamma seq(level) Delta$ if $x forces and.big Gamma -> or.big Delta$ (*ignore $level$!*)
+
 #theorem[Completeness of $GentzenDPL$][
   + $GentzenDPL proves Gamma seq1 Delta$ if and only if $Gamma seq1 Delta$ is valid in every $LogicFPL$-model.
   + $GentzenDPL proves Gamma seq2 Delta$ if and only if $Gamma seq2 Delta$ is eventually always satisfied on the tail $(t_n)_(n in omega)$ of every $omega$-extension of an $LogicFPL$-model.
-    - i.e. satisfied at all $t_n$ with $n >= N$, for some $N$.
+    - i.e. there is $N$ s.t. $t_n forces Gamma seq2 Delta$ for all $n >= N$.
   + $GentzenDPL proves Gamma seq3 Delta$ if and only if $Gamma seq3 Delta$ is satisfied at the bottom $t_omega$ of every $omega$-extension of an $LogicFPL$-model.
 ]
 
@@ -580,7 +771,7 @@ Some problems remains! Examples:
 + What is meaning of $LogicFPL, LogicSPL, LogicDPL$ in perspective of provability logic?
 + Correspondence with the classification theorem of @Bek90.
   #proposition[Classification Theorem][
-    Provability logics can be classified into four families, each consisting of suitable extensions of $LogicGL$, $LogicD$ or $LogicS$.
+    Provability logics can be classified into four families by suitable extensions of $LogicGL$, $LogicD$ or $LogicS$.
   ]
   Can we define propositional logics corresponding to them?
   - Sequent calculi with four levels seem to work (in progress).
